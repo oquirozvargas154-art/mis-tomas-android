@@ -1,0 +1,52 @@
+name: Compilar Mis Tomas Android
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - principal
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v4
+
+      - name: Preparar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Preparar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Descomprimir Mis Tomas V6
+        run: |
+          unzip -o mis_tomas_v6_android_source.zip
+          ls -la mis_tomas_v6_android
+
+      - name: Instalar dependencias
+        working-directory: mis_tomas_v6_android
+        run: npm install
+
+      - name: Crear proyecto Android
+        working-directory: mis_tomas_v6_android
+        run: npm run android:init
+
+      - name: Compilar APK
+        working-directory: mis_tomas_v6_android/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Guardar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mis-Tomas-V6-APK
+          path: mis_tomas_v6_android/android/app/build/outputs/apk/debug/app-debug.apk
