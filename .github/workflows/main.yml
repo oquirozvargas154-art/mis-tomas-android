@@ -31,8 +31,8 @@ jobs:
       - name: Crear version independiente de prueba
         working-directory: mis_tomas_v7_android
         run: |
-          sed -i 's/cl\.tottemlab\.mistomas/cl.tottemlab.mistomas.v6test/g' capacitor.config.json
-          sed -i 's/"appName": "Mis Tomas"/"appName": "Mis Tomas V6 Prueba"/g' capacitor.config.json
+          sed -i 's/cl\.tottemlab\.mistomas/cl.tottemlab.mistomas.v7test/g' capacitor.config.json
+          sed -i 's/"appName": "Mis Tomas"/"appName": "Mis Tomas V7 Prueba"/g' capacitor.config.json
           cat capacitor.config.json
 
       - name: Instalar dependencias
