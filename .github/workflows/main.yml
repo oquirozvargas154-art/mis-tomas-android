@@ -1,4 +1,5 @@
-name: Mis Tomas V7 Diagnostico
+name: Mis Tomas V8 Prueba
+
 on:
   workflow_dispatch:
   push:
@@ -26,25 +27,25 @@ jobs:
           java-version: "21"
 
       - name: Descomprimir proyecto
-        run: unzip -o mis_tomas_v7_android_source.zip
+        run: unzip -o mis_tomas_v8_android_source-1.zip
 
       - name: Crear version independiente de prueba
-        working-directory: mis_tomas_v7_android
+        working-directory: mis_tomas_v8_android
         run: |
-          sed -i 's/cl\.tottemlab\.mistomas/cl.tottemlab.mistomas.v7test/g' capacitor.config.json
-          sed -i 's/"appName": "Mis Tomas"/"appName": "Mis Tomas V7 Prueba"/g' capacitor.config.json
+          sed -i 's/cl\.tottemlab\.mistomas/cl.tottemlab.mistomas.v8test/g' capacitor.config.json
+          sed -i 's/"appName": "Mis Tomas"/"appName": "Mis Tomas V8 Prueba"/g' capacitor.config.json
           cat capacitor.config.json
 
       - name: Instalar dependencias
-        working-directory: mis_tomas_v7_android
+        working-directory: mis_tomas_v8_android
         run: npm install
 
       - name: Crear proyecto Android
-        working-directory: mis_tomas_v7_android
+        working-directory: mis_tomas_v8_android
         run: npm run android:init
 
       - name: Compilar APK
-        working-directory: mis_tomas_v7_android/android
+        working-directory: mis_tomas_v8_android/android
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
@@ -52,5 +53,5 @@ jobs:
       - name: Guardar APK
         uses: actions/upload-artifact@v4
         with:
-          name: Mis-Tomas-V7-Diagnostico-APK
-          path: mis_tomas_v7_android/android/app/build/outputs/apk/debug/app-debug.apk
+          name: Mis-Tomas-V8-Prueba-APK
+          path: mis_tomas_v8_android/android/app/build/outputs/apk/debug/app-debug.apk
