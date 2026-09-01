@@ -1,4 +1,4 @@
-name: Mis Tomas V9 Prueba
+name: Mis Tomas V9.1 Prueba
 
 on:
   workflow_dispatch:
@@ -26,19 +26,19 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Descomprimir V9
-        run: unzip -o mis_tomas_v9_android_source.zip
+      - name: Descomprimir V9.1
+        run: unzip -o mis_tomas_v9_1_android_source.zip
 
       - name: Instalar dependencias
-        working-directory: mis_tomas_v9_android
+        working-directory: mis_tomas_v9_1_android
         run: npm install
 
       - name: Crear proyecto Android
-        working-directory: mis_tomas_v9_android
+        working-directory: mis_tomas_v9_1_android
         run: npm run android:init
 
       - name: Compilar APK
-        working-directory: mis_tomas_v9_android/android
+        working-directory: mis_tomas_v9_1_android/android
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
@@ -46,5 +46,5 @@ jobs:
       - name: Guardar APK
         uses: actions/upload-artifact@v4
         with:
-          name: Mis-Tomas-V9-Prueba-APK
-          path: mis_tomas_v9_android/android/app/build/outputs/apk/debug/app-debug.apk
+          name: Mis-Tomas-V9-1-Prueba-APK
+          path: mis_tomas_v9_1_android/android/app/build/outputs/apk/debug/app-debug.apk
